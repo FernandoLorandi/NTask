@@ -1,0 +1,28 @@
+{
+  "name": "ntask-web",
+  "version": "1.0.0",
+  "description": "Versão web do gerenciador de tarefas",
+  "license": "ISC",
+  "author": "Fernando Lorandi",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && npm run server",
+    "server": "http-server public -p 3001",
+    "build": "npm run browserify && npm run uglify",
+    "browserify": "browserify src/index.js -t babelify -o public/js/app.js",
+    "uglify": "mkdir -p public/dist && uglifyjs public/js/app.js -o public/dist/app.min.js -c -m"
+  },
+  "dependencies": {
+    "babelify": "^10.0.0",
+    "browser-request": "^0.3.3",
+    "browserify": "^17.0.1",
+    "http-server": "^14.1.1",
+    "tiny-emitter": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "uglify-js": "^3.19.3"
+  }
+}

@@ -1,0 +1,28 @@
+import jwt from 'jwt-simple'
+
+module.exports = (app) => {
+  const config = app.libs.config
+  const Users = app.db.models.Users
+
+  app.post('/token', (req, res) => {
+    if (req.body && req.body.email && req.body.password) {
+      const email = req.body.email
+      const password = req.body.password
+
+      Users.findOne({ where: { email } })
+        .then((user) => {
+          if (!user) return res.sendStatus(401)
+
+          if (Users.isPassword(user.password, password)) {
+            const payload = { id: user.id }
+            return res.json({ token: jwt.encode(payload, config.jwtSecret) })
+          } else {
+            res.sendStatus(401)
+          }
+        })
+        .catch((error) => res.sendStatus(401))
+    } else {
+      res.sendStatus(401)
+    }
+  })
+}

@@ -1,0 +1,14 @@
+# dependencies
+**/node_modules/
+
+# local env
+**/.env
+
+# API local artifacts / secrets
+ntask-api/ntask.sqlite
+ntask-api/server.key
+ntask-api/server.crt
+ntask-api/server.csr
+
+# logs
+**/*.log
